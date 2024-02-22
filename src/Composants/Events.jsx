@@ -4,9 +4,14 @@ import Event from './Event'
 import listevents from "../data/events.json"
 import { useEffect, useState } from 'react'
 import { Alert } from 'react-bootstrap'
+import { useParams, useSearchParams } from 'react-router-dom'
+import NavBar from './NavBar'
 
 export default function Events (){
 
+    const {id}=useParams();
+    console.log(id);
+    const  [name , Setname] = useSearchParams({name:""})
 
     const [showAlert, setshowAlert] = useState(false)
     const malert=()=>{
@@ -26,9 +31,13 @@ export default function Events (){
 
 
     return <>
+    <NavBar></NavBar>
     {showWelcome &&<Alert variant='success'>
           event booked
         </Alert> } 
+
+        <p>name {name}</p>
+        <p>id {id}</p>
 
 
         
@@ -48,10 +57,11 @@ export default function Events (){
     }
     </div>
     {showAlert &&   <Alert variant='success'>
-          event booked
+          event booked 
         </Alert>
     
     
+  
     }
     </>
 }
