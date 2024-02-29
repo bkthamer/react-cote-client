@@ -1,67 +1,75 @@
+import React, { useEffect, useState } from 'react';
+import Event from './Event';
+import { getallEvents } from '../service/api';
+const Events = () => {
 
+  const [bookAlert , setBookAlert] = useState(false);
 
-import Event from './Event'
-import listevents from "../data/events.json"
-import { useEffect, useState } from 'react'
-import { Alert } from 'react-bootstrap'
-import { useParams, useSearchParams } from 'react-router-dom'
-import NavBar from './NavBar'
+  const [showWelcome, setShowWelcome] = useState(false); 
+  const [ListEvent, setListEvent] = useState(null);
 
-export default function Events (){
+ useEffect(() => {
+    setShowWelcome(true);
+    setTimeout(() => {setShowWelcome(false);}, 3000);
+    return () => {
+      console.log('componentWillUnmount');
+      
+    }
+  }, []);
 
-    const {id}=useParams();
-    console.log(id);
-    const  [name , Setname] = useSearchParams({name:""})
-
-    const [showAlert, setshowAlert] = useState(false)
-    const malert=()=>{
-        setshowAlert(true);
-        setTimeout(()=>{
-            setshowAlert(false),3000
-        })
+  const fetchEvents = async () => {
+    try {
+      const events = await getallEvents();
+      setListEvent(events.data);
+      console.log(events.data);
+    } catch (error) {
+      console.log(error);
     }
 
-    const [showWelcome,setshowWelcome]= useState(false)
+  }
 
-
-    useEffect(()=>{
-        setshowWelcome(true);
-        setTimeout(()=>setshowWelcome(false),3000);
-    },[])
-
-
-    return <>
-    <NavBar></NavBar>
-    {showWelcome &&<Alert variant='success'>
-          event booked
-        </Alert> } 
-
-        <p>name {name}</p>
-        <p>id {id}</p>
-
-
-        
-    {showAlert &&   <Alert variant='success'>
-          event booked
-        </Alert>
-    
-    
+  useEffect(() => {
+    try {
+      fetchEvents();
+    } catch (error) {
+      console.log(error);
     }
-    <div className='row'>
-    {
+  }, []);
 
-        listevents?.map((element,index)=>{
+
+
+
+  const handleBookAlert = () => {
+    setBookAlert(true);
+
+    setTimeout(() => {
+      setBookAlert(false);
+    }, 3000);
+  }
+
+
+
+
+  return (
+    
+    <div className="row">
+      
+        {showWelcome && <div className="alert alert-success">Welcome to our events</div>}
+
+
+            {ListEvent && ListEvent.map((event, index) => {
+                return (
+                   
+                        <Event className="col-md-4" event={event}  key={index} bookAlert={handleBookAlert}/>
+                    
+                )
+            }
+      
+
+            )}
+            {bookAlert && <div className="alert alert-success">ticket booked !!</div>}
             
-            return <Event className='col-md-4'  key={index} e={element}  fonctionalert={malert}></Event>
-        })
-    }
     </div>
-    {showAlert &&   <Alert variant='success'>
-          event booked 
-        </Alert>
-    
-    
-  
-    }
-    </>
+  );
 }
+export default Events;
