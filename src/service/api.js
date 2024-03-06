@@ -1,5 +1,5 @@
 import axios from "axios";
-const url = "http://localhost:3001/events";
+const url = "http://localhost:3000/events";
 
 export const getallEvents = async (id) => {  id = id || ""; 
  return await axios.get(`${url}/${id}`);

@@ -7,6 +7,7 @@ import React, { Suspense } from 'react'
 import { Nav } from 'react-bootstrap'
 import NavBar from './Composants/NavBar'
 import AddEvent from './Composants/addEvent'
+import UpdateEvent from './Composants/UpdateEvent'
 
 
 
@@ -29,6 +30,10 @@ function App() {
 
     <Route  path='/add' >
     <Route index element={<AddEvent/>} />
+    </Route>
+
+    <Route  path='/edit/:id' >
+    <Route index element={<UpdateEvent/>} />
     </Route>
 
   

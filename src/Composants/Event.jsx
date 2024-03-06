@@ -60,6 +60,9 @@ const Event = (props) => {
         <Button variant="secondary" onClick={setlike} >{event.like ? 'like' : 'dislike'}</Button>
         <Button variant="primary" onClick={buyTicket} disabled={event.nbTickets === 0 ? true : false}>Book an Event</Button>
         <Button variant="danger" onClick={()=>deleteEvent1(event.id)} > delete</Button>
+        <Link to={`/edit/${event.id}`}>
+          <Button variant="primary">Edit</Button>
+        </Link>
       </Card.Body>
     </Card>
   );
