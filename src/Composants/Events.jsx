@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Event from './Event';
 import { getallEvents } from '../service/api';
+import { useSelector } from 'react-redux';
+
+
 const Events = () => {
 
   const [bookAlert , setBookAlert] = useState(false);
@@ -8,12 +11,11 @@ const Events = () => {
   const [showWelcome, setShowWelcome] = useState(false); 
   const [ListEvent, setListEvent] = useState(null);
 
- useEffect(() => {
+  useEffect(() => {
     setShowWelcome(true);
     setTimeout(() => {setShowWelcome(false);}, 3000);
     return () => {
       console.log('componentWillUnmount');
-      
     }
   }, []);
 

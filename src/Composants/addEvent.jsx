@@ -2,6 +2,7 @@ import { Button, Container, Form } from "react-bootstrap";
 import { useState } from "react";
 import { addEvent } from "../service/api";
 
+
 export default function AddEvent() {
   const [eventItem, setEventItem] = useState({
     name: "",
@@ -10,6 +11,11 @@ export default function AddEvent() {
     nbTickets: 0,
     img: "",
   });
+
+
+
+
+
 
   const handleInputChange = (e) => {
     setEventItem({ ...eventItem,
@@ -32,6 +38,8 @@ export default function AddEvent() {
     e.preventDefault();
     console.log(eventItem);
     addEvent(eventItem);
+  
+
   }
 
   return (
